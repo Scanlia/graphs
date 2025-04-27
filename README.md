@@ -1,6 +1,6 @@
 # Medical Research Graphs
 
-This repository contains Python scripts for generating various graphs and visualizations used in medical research. The graphs are designed to analyze and present data related to plaque features, hazard ratios, and other metrics in a clear and visually appealing manner.
+This repository contains Python scripts for generating various graphs and visualizations used in medical research. The graphs are designed to analyze and present data related to plaque features, hazard ratios, model performance, and other metrics in a clear and visually appealing manner.
 
 ## Contents
 
@@ -13,7 +13,11 @@ This repository contains Python scripts for generating various graphs and visual
    - Creates a forest plot visualizing hazard ratios (HR) and confidence intervals (CI) for different plaque features by sex.
    - Saves the output as `forest_plot.png`.
 
-3. **`.gitignore`**
+3. **`mace-prediction.py`**
+   - Generates a bar chart comparing the Area Under Curve (AUC) values for different logistic regression models.
+   - Saves the output as `mace-logistic-models.png`.
+
+4. **`.gitignore`**
    - Specifies files and directories to be ignored by Git, such as Python cache files, virtual environments, and build artifacts.
 
 ## Requirements
@@ -50,8 +54,14 @@ pip install matplotlib numpy pandas
      ```
      This will generate a forest plot and save it as `forest_plot.png`.
 
+   - For the logistic model performance chart:
+     ```bash
+     python mace-prediction.py
+     ```
+     This will generate a bar chart and save it as `mace-logistic-models.png`.
+
 3. View the generated graphs:
-   - Open the PNG files (`plaque_graph.png` or `forest_plot.png`) in your preferred image viewer.
+   - Open the PNG files (`plaque_graph.png`, `forest_plot.png`, or `mace-logistic-models.png`) in your preferred image viewer.
 
 ## Graph Details
 
@@ -68,6 +78,13 @@ pip install matplotlib numpy pandas
   - Error bars for CI.
   - Custom y-axis positions for grouped features.
   - HR values displayed as text next to the points.
+
+### Logistic Model Performance Chart (`mace-prediction.py`)
+- **Purpose**: Compares the Area Under Curve (AUC) values for different logistic regression models.
+- **Features**:
+  - Custom order for models.
+  - Bar labels for precise AUC values.
+  - Color gradient for visual distinction.
 
 ## Customization
 
