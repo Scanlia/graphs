@@ -5,15 +5,15 @@ import matplotlib.patches as mpatches
 
 # Parse the data including HR and CI
 data = {
-    'Feature': ['TPV', 'TPV', 'NCP', 'NCP', 'CP', 'CP'],
+    'Feature': ['Total', 'Total', 'Non-Calcified', 'Non-Calcified', 'Calcified', 'Calcified'],
     'Sex': ['Women', 'Men', 'Women', 'Men', 'Women', 'Men'],
     'HR_CI_str': [
-        '1.177 (1.117, 1.241)', # Corrected typo here
-        '1.053 (1.033, 1.074)',
-        '1.271 (1.166, 1.384)',
-        '1.116 (1.080, 1.153)',
-        '1.229 (1.137, 1.330)',
-        '1.054 (1.012, 1.098)'
+        '1.177\n(1.117, 1.241)', # Corrected typo here
+        '1.053\n(1.033, 1.074)',
+        '1.271\n(1.166, 1.384)',
+        '1.116\n(1.080, 1.153)',
+        '1.229\n(1.137, 1.330)',
+        '1.054\n(1.012, 1.098)'
     ]
 }
 df = pd.DataFrame(data)
@@ -71,7 +71,7 @@ legend_fontsize = 11 # Increased
 
 # --- Create the Forest Plot ---
 # Keep figsize the same as previous plot
-fig, ax = plt.subplots(figsize=(8, 6))
+fig, ax = plt.subplots(figsize=(10, 6))
 
 # Plot points and error bars using calculated y_pos
 for i, row in df.iterrows():
@@ -80,9 +80,10 @@ for i, row in df.iterrows():
                 fmt='o', # 'o' for point marker
                 color=row['color'],
                 ecolor=row['color'], # Error bar color
-                elinewidth=2,
-                capsize=5,
-                markersize=7,
+                elinewidth=3,
+                capsize=7,
+                capthick=3,
+                markersize=8,
                 label=row['Sex'] if not i < 2 else "")
 
 # --- Add Vertical Line at HR=1.0 ---
@@ -107,7 +108,7 @@ ax.tick_params(axis='x', labelsize=tick_label_fontsize)
 
 
 # --- Labels and Title (with NEW font sizes) ---
-ax.set_xlabel('Hazard Ratio (95% CI) per 50mm³ Plaque', fontsize=axis_label_fontsize)
+ax.set_xlabel('Hazard Ratio (95% CI)\nFor Every 50mm³ Increase in Plaque', fontsize=axis_label_fontsize)
 ax.set_ylabel('Plaque Feature', fontsize=axis_label_fontsize)
 ax.set_title('Forest Plot of Hazard Ratios by Sex', fontsize=title_fontsize, pad=20)
 
@@ -121,11 +122,12 @@ for i, row in df.iterrows():
 handles = [mpatches.Patch(color=color_map['Women'], label='Women'),
            mpatches.Patch(color=color_map['Men'], label='Men')]
 # Apply increased font size to legend text and title
-ax.legend(handles=handles, title="Sex", loc='lower right', fontsize=legend_fontsize, title_fontsize=legend_fontsize)
+ax.legend(handles=handles, title="Sex", loc='upper right', fontsize=legend_fontsize, title_fontsize=legend_fontsize)
 
 # --- Adjust Layout ---
 # Use tight_layout, potentially adjust rect further if needed for larger text
 plt.tight_layout(rect=[0, 0, 0.85, 1]) # Adjusted right margin slightly more
 plt.grid(axis='y', linestyle=':', alpha=0.6)
-
+# Save the plot as a transparent PNG
+plt.savefig('forest_plot.png', dpi=300, bbox_inches='tight', transparent=True)
 plt.show()
